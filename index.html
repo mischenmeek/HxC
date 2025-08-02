@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HxC</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div id="logo">
+            <h1>
+                <a href="index.html">HxC</a>
+            </h1>
+        </div>
+
+        <audio id="myAudio" src="sound/Harry-theme.mp3" preload="metadata"></audio>
+
+        <div class="audio-player">
+            <button id="playBtn">
+                <img id="playIcon" src="icon/play.svg" alt="재생과 정지" >
+            </button>
+            <span id="currentTime">0:00</span>
+            <input type="range" id="seekBar" value="0" step="1" />
+            <span id="duration">0:00</span>
+            <input type="range" id="volumeBar" min="0" max="1" step="0.01" value="1" />
+        </div>
+
+        <div>
+            <h6 class="copyright"> ⓒ 먹태 님</h6>
+        </div>
+    </header>
+    <main class="contents">
+        <section id="nav">
+            <ul>
+                <li class="menu"><a href="pair.html">페어 소개</a></li>
+                <li class="menu"><a href="gallery.html">갤러리</a></li>
+            </ul>
+        </section>
+        <section id="charimg">
+            <img src="img/쥬빠삐님2.png" alt="쥬빠삐님 커미션 이미지">
+            <h6 class="copyright">ⓒ 쥬빠삐 님</h6>
+        </section>
+    </main>
+    <footer>
+        <div id="contact">
+            <h6><a href="mailto:hzhzcms@gmail.com">Copyright ⓒ HzHz | e-mail: hzhzcms@gmail.com</a></h6>
+        </div>
+    </footer>
+    <script src="js/audio-player.js"></script>
+</body>
+</html>
