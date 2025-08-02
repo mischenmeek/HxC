@@ -57,6 +57,9 @@
   font-family: 'BookkMyungjo-Bd', sans-serif;
   font-size: 1rem;
   color: rgb(53, 46, 37);
+
+  position: relative;     /* ✅ 필수! */
+  z-index: 200;           /* 충분히 높은 값 */
 }
 
 .audio-player button {
@@ -83,7 +86,7 @@
   height: 4px;
   cursor: pointer;
   position: relative;
-  z-index: 100;
+  z-index: 201;
   pointer-events: auto;
   flex-shrink: 0; /* 줄어들지 않게 */
 }
@@ -388,6 +391,8 @@ header #header h6{
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    position: relative;
+    z-index: -1;
 }
 
 .menu {
