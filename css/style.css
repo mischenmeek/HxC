@@ -1,0 +1,669 @@
+@font-face {
+    font-family: 'BookkMyungjo-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24ClassicType-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Cafe24ClassicType-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+@media (max-width: 600px) {
+  .audio-player {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@keyframes slideFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideFadeInUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 30px); /* 아래쪽에서 시작 */
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0); /* 제자리로 이동 */
+  }
+}
+
+.audio-player {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.3s; /* 원하면 딜레이 줄 수 있음 */
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1.5px solid rgb(53, 46, 37);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-family: 'BookkMyungjo-Bd', sans-serif;
+  font-size: 1rem;
+  color: rgb(53, 46, 37);
+}
+
+.audio-player button {
+  position: relative;
+  z-index: 100;
+  pointer-events: auto;
+  color: rgb(53, 46, 37);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  object-fit: fill;
+}
+
+.audio-player button img {
+  width: 25px;
+  height: 25px;
+  display: block;
+}
+
+.audio-player input[type="range"] {
+  accent-color: rgb(53, 46, 37);
+  height: 4px;
+  cursor: pointer;
+  position: relative;
+  z-index: 100;
+  pointer-events: auto;
+  flex-shrink: 0; /* 줄어들지 않게 */
+}
+
+#seekBar {
+  width: 50%;
+  flex-grow: 1;
+}
+
+#volumeBar {
+  width: 15%;
+}
+
+
+body {
+    background-image: url('../img/background.jpg');
+    background-repeat: no-repeat;        /* 반복 방지 */
+    background-position: center center;  /* 중앙 정렬 */
+    background-size: cover;              /* 화면에 꽉 채우되 비율 유지 */
+
+    margin: 0;
+    padding: 0;
+    height: 100vh;           /* 뷰포트 전체 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;        /* 스크롤 제거 */
+    font-family: BookkMyungjo-Bd, sans-serif;
+}
+
+header {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.3s; /* 원하면 딜레이 줄 수 있음 */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 20vh;
+  padding-top: 25px;
+  flex-shrink: 0;
+}
+
+header a {
+  height: 80px;            /* 원하는 고정값 */
+  flex-shrink: 0;
+  text-decoration: none;
+  text-align: center;
+}
+
+header #header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+  height: 75%;
+}
+
+header #header img{
+  width: 100%;     /* ← div 너비에 맞게 */
+  height: 100%;    /* ← div 높이에 맞게 */
+  object-fit: cover; /* 꽉 채우되 비율 무시하고 잘림 허용 */
+  object-position: center 20%;
+
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+header #header h6{
+  text-align: center;
+  width: 40vw;
+  margin-top: 3px;
+  padding-bottom: 10px;
+  margin-bottom: 3px;
+}
+
+.pair-contents {
+  margin-top: 10vh;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2vw;
+}
+
+#harry {
+  opacity: 0;
+  transform: translateX(50px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.5s; /* 원하면 딜레이 줄 수 있음 */
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: end;
+  width: 20vw;
+  height: 100%;
+  background-image: url("../img/코롯토.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  margin-right: 3vw;
+
+  -webkit-mask-image: linear-gradient(to top, transparent, black 33%);
+  mask-image: linear-gradient(to top, transparent, black 33%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+#harry h2,
+#harry h5 {
+  opacity: 0;
+  transform: translateX(30px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.3s; /* 원하면 딜레이 줄 수 있음 */
+
+
+  text-shadow: 0 0 3px rgb(255, 255, 255);
+  background: linear-gradient(90deg, rgba(0,255,255,0.6) 100%, transparent 50%) no-repeat;
+  background-size: 100% 40%;
+  background-position: 0 80%; /* 아래쪽에 위치 */
+}
+
+#harry h4 {
+  opacity: 0;
+  transform: translateX(30px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.4s; /* 원하면 딜레이 줄 수 있음 */
+
+
+  text-shadow: 0 0 3px rgb(255, 255, 255);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 100%, transparent 50%) no-repeat;
+  background-size: 100% 90%;
+  background-position: 0 80%; /* 아래쪽에 위치 */
+}
+
+#harry h5 {
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+#ciel {
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.5s; /* 원하면 딜레이 줄 수 있음 */
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: start;
+  width: 20vw;
+  height: 100%;
+  background-image: url("../img/코롯토-복사본.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  margin-left: 3vw;
+
+  -webkit-mask-image: linear-gradient(to top, transparent, black 33%);
+  mask-image: linear-gradient(to top, transparent, black 33%);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+#ciel h2,
+#ciel h5 {
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.3s; /* 원하면 딜레이 줄 수 있음 */
+
+  text-shadow: 0 0 3px rgb(255, 255, 255);
+  background: linear-gradient(90deg, rgba(0,255,255,0.6) 100%, transparent 50%) no-repeat;
+  background-size: 100% 40%;
+  background-position: 0 80%; /* 아래쪽에 위치 */
+}
+
+#ciel h4 {
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.4s; /* 원하면 딜레이 줄 수 있음 */
+
+  text-shadow: 0 0 3px rgb(255, 255, 255);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 100%, transparent 50%) no-repeat;
+  background-size: 100% 90%;
+  background-position: 0 80%; /* 아래쪽에 위치 */
+}
+
+#ciel h5{
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+.name {
+  margin-bottom: 0;
+}
+
+.catchphrase {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+#mainImgWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  width: 25vw;
+  word-break: keep-all;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+/* 이미지와 텍스트 겹치는 공간 */
+#mainImgContainer {
+  position: relative;
+  width: 100%;
+  height: 25vw;
+}
+
+/* 이미지 스타일 */
+#mainImg {
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/지지님3.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+#mainImgWrapper h6 {
+  font-size: 0.8rem;
+  text-align: center;
+  margin: 0;
+  margin-top: 5px;
+}
+
+#logo {
+  font-family: 'Cafe24ClassicType-Regular', sans-serif;
+  height: 100px;            /* 원하는 고정값 */
+  flex-shrink: 0;
+  text-align: center;
+}
+
+#logo a, #logo h1 {
+  text-decoration: none;
+  text-align: center;
+  color: rgb(53, 46, 37);
+  padding-top: 20px;
+}
+
+.contents {
+    width: 60%;
+    flex: 1;                 /* 남은 공간 자동 채움 */
+    display: flex;
+}
+
+#nav {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 10%;
+}
+
+#nav a {
+    display: inline-block;
+    position: relative;
+    color: rgb(53, 46, 37);
+    text-decoration: none;
+    transform-origin: left center;
+    background: linear-gradient(90deg, rgba(0,255,255,0.6) 100%, transparent 0%) no-repeat;
+    background-size: 0% 50%; /* 처음엔 가로 너비 0% */
+    background-position: 0 80%; /* 아래쪽에 위치 */
+    transition: background-size 0.3s ease-out, transform 0.2s ease-out;
+}
+
+#nav a:hover ::after {
+    width: 100%;
+}
+
+#charimg {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideFadeIn 0.6s ease-out forwards;
+    animation-delay: 0.3s; /* 원하면 딜레이 줄 수 있음 */
+
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.menu {
+    list-style: none;
+    overflow: visible;
+    margin-bottom: 0px;
+    padding-bottom: 50px;
+    font-size: 150%;
+    width: 100%;
+}
+
+#nav a:link, #nav a:visited {
+    text-decoration: none;
+    color: rgb(53, 46, 37);
+}
+
+#nav a:hover {
+    transform: scale(1.25);
+    transform-origin: left center;
+    background-size: 100% 50%; /* 가로로 쭉 펴짐 */
+}
+
+#charimg img {
+    width: 100%;
+}
+
+#charimg .copyright {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 80%;
+    text-decoration: none;
+    color: rgb(53, 46, 37);
+}
+
+.copyright {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.3s; /* 원하면 딜레이 줄 수 있음 */
+
+  margin-top: 2.5px;
+  margin-bottom: 5px;
+}
+
+footer {
+  height: 40px;            /* 원하는 고정값 */
+  flex-shrink: 0;
+  text-align: center;
+  padding: 10px;
+}
+
+#contact h6 {
+    color: rgb(53, 46, 37);
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+#contact a:link, #contact a:visited {
+    text-decoration: none;
+    color: rgb(53, 46, 37);
+}
+
+ul {
+    opacity: 0;
+    transform: translateX(-30px);
+    animation: slideFadeIn 0.6s ease-out forwards;
+    animation-delay: 0.3s; /* 원하면 딜레이 줄 수 있음 */
+
+    margin: 0;
+    padding-left: 10%;
+    padding-right: 50%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    border: 2px solid rgb(53, 46, 37);
+    border-top-width: 7.5px;
+    background-image: url('../img/note.jpg');
+    background-repeat: no-repeat;        /* 반복 방지 */
+    background-position: center center;  /* 중앙 정렬 */
+    background-size: cover;              /* 화면에 꽉 채우되 비율 유지 */
+}
+
+li {
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.5s; /* 원하면 딜레이 줄 수 있음 */
+
+  margin: 0;
+  padding-top: 25%;
+  padding-bottom: 25%;
+}
+
+#introduction1,
+#introduction2,
+#introduction3 {
+  margin: 0;
+  position: absolute;
+  white-space: pre-line;
+  font-size: 0.9rem;
+  z-index: 2;
+  text-shadow: 0 0 3px white;
+}
+
+#introduction1 {
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.2s; /* 원하면 딜레이 줄 수 있음 */
+
+  margin-top: 2vh;
+  top: 5%;
+  left: 0;
+  width: 50%;
+  text-align: left;
+  padding-left: 5px;
+}
+
+/* 상단 오른쪽 */
+#introduction2 {
+  opacity: 0;
+  transform: translateX(30px);
+  animation: slideFadeIn 0.6s ease-out forwards;
+  animation-delay: 0.4s; /* 원하면 딜레이 줄 수 있음 */
+
+  margin-top: 5vh;
+  top: 5%;
+  right: 0;
+  width: 50%;
+  text-align: right;
+  padding-right: 5px;
+}
+
+/* 하단 중앙 */
+#introduction3 {
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: 100%;
+
+  opacity: 0;
+  animation: slideFadeInUp 0.6s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+.gallery {
+  flex: 1;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;          /* 💥 가로 스크롤 강제 제거 */
+  columns: 4 160px;            /* 컬럼 줄이기 */
+  column-gap: 1vh;
+  padding-right: 1vh;
+  z-index: 20;
+}
+
+.gallery img {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1vh;
+  height: auto;
+  display: block;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  break-inside: avoid;          /* 🔧 이미지 쪼개짐 방지 */
+  z-index: 20;
+}
+
+.gallery img:hover {
+  transform: scale(1.03);
+}
+
+/* 💫 라이트박스 전체 */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10px);
+  background-color: rgba(49, 35, 13, 0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* 💨 흐릿한 배경 */
+.lightbox-blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px);
+  background-color: rgba(49, 35, 13, 0.4);
+  z-index: 0;
+}
+
+/* 💥 확대된 이미지 */
+#lightbox-img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  animation: zoomIn 0.3s ease;
+  z-index: 1;
+  position: relative;
+}
+
+/* 🎯 애니메이션 */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ◀▶ 좌우 네비게이션 */
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 4vh;
+  background: rgba(255,255,255,0.6);
+  border: none;
+  border-radius: 50%;
+  width: 6vh;
+  height: 6vh;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s;
+}
+
+.nav:hover {
+  background: rgba(255,255,255,0.9);
+}
+
+.nav.left {
+  left: 5vw;
+}
+.nav.right {
+  right: 5vw;
+}
+
+main.contents-3 {
+  width: 60%;
+  flex: 0 0 75%;
+  overflow-y: auto;
+  flex-direction: column;
+  gap: 1vw;             /* 패널 사이 간격 */
+  display: flex;
+  justify-content: space-between;
+}
+
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vh;
+  z-index: 1;
+  position: relative;
+}
+
+#lightbox-source {
+  font-family: ChosunGu, sans-serif;
+  color: #fefefe;
+  font-size: 1.5vh;
+  background: rgbargba(49, 35, 13, 0.4);
+  padding: 0.5vh 1vh;
+  border-radius: 8px;
+  max-width: 90vw;
+  text-align: center;
+  margin-bottom: 0;
+}
